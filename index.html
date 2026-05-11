@@ -37,87 +37,34 @@
   <style>
     /* ── Base ── */
     *, *::before, *::after { box-sizing: border-box; }
-    body { background-color: #000000; font-family: 'Inter', sans-serif; }
+    body { background-color: #020617; font-family: 'Inter', sans-serif; }
 
-    /* ── Orbs ── */
-    .orb { position: absolute; border-radius: 50%; will-change: transform; }
-
-    .orb-main {
-      width: 1100px; height: 580px;
-      background: radial-gradient(ellipse, rgba(0,100,255,0.75) 0%, rgba(0,60,220,0.22) 42%, transparent 68%);
-      filter: blur(68px);
-      top: -290px; left: 50%; transform: translateX(-50%);
-      animation: orbMain 22s ease-in-out infinite;
+    /* ── Radial bg decorations ── */
+    .bg-radial-blue  {
+      background: radial-gradient(ellipse 80% 60% at 50% -5%, rgba(29,78,216,.35) 0%, transparent 70%);
+      animation: pulse-blue 10s ease-in-out infinite;
     }
-    .orb-left {
-      width: 720px; height: 720px;
-      background: radial-gradient(circle, rgba(0,80,255,0.45) 0%, transparent 65%);
-      filter: blur(105px);
-      bottom: -160px; left: -180px;
-      animation: orbLeft 28s ease-in-out infinite;
+    .bg-radial-purple{
+      background: radial-gradient(ellipse 55% 45% at 85% 55%, rgba(109,40,217,.22) 0%, transparent 70%);
+      animation: pulse-purple 14s ease-in-out infinite;
     }
-    .orb-right {
-      width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(0,130,255,0.32) 0%, transparent 65%);
-      filter: blur(85px);
-      top: 36%; right: -130px;
-      animation: orbRight 24s ease-in-out infinite;
-    }
-    .orb-mid {
-      width: 380px; height: 380px;
-      background: radial-gradient(circle, rgba(10,90,255,0.38) 0%, transparent 65%);
-      filter: blur(65px);
-      top: 56%; left: 26%;
-      animation: orbMid 19s ease-in-out infinite;
+    .bg-radial-teal  {
+      background: radial-gradient(ellipse 50% 40% at 10% 80%, rgba(6,182,212,.12) 0%, transparent 65%);
+      animation: pulse-teal 12s ease-in-out infinite;
     }
 
-    /* Light rays */
-    .light-rays {
-      position: absolute;
-      top: -60px; left: 50%;
-      width: 1500px; height: 860px;
-      transform: translateX(-50%);
-      background: conic-gradient(
-        from 258deg at 50% 0%,
-        transparent        0deg,
-        rgba(0,90,255,.10)  7deg,  transparent  15deg,
-        rgba(0,110,255,.07) 28deg, transparent  36deg,
-        rgba(0,85,255,.09)  56deg, transparent  64deg,
-        rgba(0,130,255,.11) 97deg, transparent 105deg,
-        rgba(0,90,255,.07) 130deg, transparent 138deg,
-        transparent        360deg
-      );
-      animation: raysBreath 9s ease-in-out infinite;
+    @keyframes pulse-blue {
+      0%,100% { opacity: 1;    transform: scale(1)    translateY(0px);  }
+      50%      { opacity: 0.65; transform: scale(1.12) translateY(-20px); }
     }
-    @keyframes raysBreath {
-      0%,100% { opacity:.8;  transform: translateX(-50%) scaleX(1);    }
-      50%      { opacity: 1;  transform: translateX(-50%) scaleX(1.14); }
+    @keyframes pulse-purple {
+      0%,100% { opacity: 1;    transform: scale(1)    translate(0px, 0px);   }
+      40%      { opacity: 0.6;  transform: scale(1.15) translate(-30px, 25px); }
+      70%      { opacity: 0.85; transform: scale(0.92) translate(20px, -15px); }
     }
-    @keyframes orbMain {
-      0%,100% { transform: translateX(-50%) translateY(0)    scaleX(1);    }
-      30%     { transform: translateX(-47%) translateY(-45px) scaleX(1.07); }
-      65%     { transform: translateX(-53%) translateY(28px)  scaleX(0.95); }
-    }
-    @keyframes orbLeft {
-      0%,100% { transform: translate(0,0)       scale(1);    }
-      40%     { transform: translate(75px,-65px) scale(1.11); }
-      70%     { transform: translate(-45px,55px) scale(0.9);  }
-    }
-    @keyframes orbRight {
-      0%,100% { transform: translate(0,0)       scale(1);    }
-      35%     { transform: translate(-60px,50px) scale(1.1);  }
-      65%     { transform: translate(40px,-38px) scale(0.91); }
-    }
-    @keyframes orbMid {
-      0%,100% { transform: translate(0,0)        scale(1);   }
-      50%     { transform: translate(-70px,-50px) scale(1.24);}
-    }
-
-    /* ── Noise overlay ── */
-    .noise-overlay {
-      opacity: 0.03;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 200px 200px;
+    @keyframes pulse-teal {
+      0%,100% { opacity: 1;    transform: scale(1)    translate(0px,  0px);  }
+      50%      { opacity: 0.55; transform: scale(1.18) translate(25px, -30px); }
     }
 
     /* ── Glass card ── */
@@ -207,17 +154,25 @@
       .bento-4 { grid-column: span 12; }
     }
 
-    /* ── Section backgrounds — semi-transparent so canvas bleeds through ── */
-    .sec-black {
-      background: rgba(0, 0, 0, 0.80);
+    /* ── Animated grid lines (hero bg) ── */
+    .grid-lines {
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
     }
-    .sec-darkblue {
+
+    /* ── Alternating section backgrounds ── */
+    .sec-black {
+      background: #000000;
+    }
+    .sec-blue {
       background: linear-gradient(
         to bottom,
-        rgba(0,   0,  0, 0.80)   0%,
-        rgba(0,   9, 28, 0.84)  80px,
-        rgba(0,   9, 28, 0.84)  calc(100% - 80px),
-        rgba(0,   0,  0, 0.80)  100%
+        #000000      0%,
+        #000c1f    100px,
+        #000c1f    calc(100% - 100px),
+        #000000    100%
       );
     }
 
@@ -339,15 +294,10 @@
 <body class="text-slate-100 antialiased overflow-x-hidden">
 
   <!-- ═══════════════════════ BACKGROUND LAYERS ═══════════════════════ -->
-  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-    <canvas id="bg-canvas" class="absolute inset-0 w-full h-full"></canvas>
-    <div class="light-rays"></div>
-    <div class="orb orb-main"></div>
-    <div class="orb orb-left"></div>
-    <div class="orb orb-right"></div>
-    <div class="orb orb-mid"></div>
-    <div class="absolute inset-0 scan-lines"></div>
-    <div class="absolute inset-0 noise-overlay"></div>
+  <div class="fixed inset-0 pointer-events-none z-0">
+    <div class="absolute inset-0 bg-radial-blue"></div>
+    <div class="absolute inset-0 bg-radial-purple"></div>
+    <div class="absolute inset-0 bg-radial-teal"></div>
   </div>
 
   <!-- ═══════════════════════ NAVBAR ═══════════════════════ -->
@@ -448,7 +398,7 @@
   </section>
 
   <!-- ═══════════════════════ SERVICES — BENTO GRID ═══════════════════════ -->
-  <section id="servicos" class="relative z-10 py-24 lg:py-32 sec-darkblue">
+  <section id="servicos" class="relative z-10 py-24 lg:py-32 sec-blue">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
 
       <!-- Section header -->
@@ -816,7 +766,7 @@
   </section>
 
   <!-- ═══════════════════════ COMO FUNCIONA ═══════════════════════ -->
-  <section class="relative z-10 py-24 lg:py-32 sec-darkblue">
+  <section class="relative z-10 py-24 lg:py-32 sec-blue">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
 
       <div class="fade-in text-center mb-16">
@@ -930,7 +880,7 @@
   </section>
 
   <!-- ═══════════════════════ FAQ ═══════════════════════ -->
-  <section class="relative z-10 py-24 lg:py-32 sec-darkblue">
+  <section class="relative z-10 py-24 lg:py-32 sec-blue">
     <div class="max-w-2xl mx-auto px-6 lg:px-8">
 
       <div class="fade-in text-center mb-14">
@@ -991,7 +941,7 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="glass p-10 lg:p-16 rounded-[32px] text-center relative overflow-hidden fade-in">
         <!-- bg glow -->
-        <div class="absolute inset-0 bg-gradient-to-br from-blue-900/25 via-transparent to-blue-800/20 rounded-[32px]"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-purple-900/20 rounded-[32px]"></div>
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-48 bg-blue-600/10 blur-3xl rounded-full"></div>
 
         <div class="relative">
@@ -1058,121 +1008,6 @@
 
   <!-- ═══════════════════════ SCRIPTS ═══════════════════════ -->
   <script>
-    // ── Aurora + Stars + Neural Network ──
-    (function () {
-      const canvas = document.getElementById('bg-canvas');
-      const ctx    = canvas.getContext('2d');
-      let W, H, stars = [], nodes = [], t = 0;
-
-      const AURORA = [
-        { yF:.18, a:[95,48,62], f:[.0022,.0054,.0013], s:[.38,.21,.54], al:.08,  r:0,  g:75,  b:255 },
-        { yF:.26, a:[72,56,42], f:[.0027,.0047,.0018], s:[.32,.27,.47], al:.065, r:0,  g:95,  b:255 },
-        { yF:.34, a:[58,40,52], f:[.0018,.0064,.0016], s:[.44,.18,.41], al:.048, r:10, g:55,  b:230 },
-        { yF:.43, a:[42,32,36], f:[.003, .004, .002 ], s:[.28,.34,.51], al:.028, r:0,  g:80,  b:255 },
-      ];
-
-      function resize() {
-        W = canvas.width  = window.innerWidth;
-        H = canvas.height = window.innerHeight;
-        initStars(); initNodes();
-      }
-
-      function initStars() {
-        stars = Array.from({ length: 180 }, () => ({
-          x: Math.random() * W, y: Math.random() * H,
-          r: Math.random() * 1.15 + 0.2,
-          phi: Math.random() * Math.PI * 2,
-          spd: Math.random() * 0.013 + 0.004,
-        }));
-      }
-
-      function initNodes() {
-        nodes = Array.from({ length: 38 }, () => ({
-          x: Math.random() * W, y: Math.random() * H,
-          vx: (Math.random() - .5) * .36, vy: (Math.random() - .5) * .36,
-          r: Math.random() * 1.7 + 0.5,
-          phi: Math.random() * Math.PI * 2,
-        }));
-      }
-
-      function drawAurora() {
-        AURORA.forEach(l => {
-          const baseY = H * l.yF;
-          ctx.beginPath();
-          ctx.moveTo(-10, H + 10);
-          for (let x = -10; x <= W + 10; x += 10) {
-            const y = baseY
-              + Math.sin(x * l.f[0] + t * l.s[0]) * l.a[0]
-              + Math.sin(x * l.f[1] + t * l.s[1]) * l.a[1]
-              + Math.sin(x * l.f[2] + t * l.s[2]) * l.a[2];
-            x === -10 ? ctx.moveTo(x, H + 10) : ctx.lineTo(x, y);
-          }
-          ctx.lineTo(W + 10, H + 10);
-          ctx.closePath();
-          const grd = ctx.createLinearGradient(0, baseY - 200, 0, H * .58);
-          grd.addColorStop(0,   `rgba(${l.r},${l.g},${l.b},${l.al})`);
-          grd.addColorStop(.55, `rgba(${l.r},${l.g},${l.b},${l.al * .35})`);
-          grd.addColorStop(1,   `rgba(${l.r},${l.g},${l.b},0)`);
-          ctx.fillStyle = grd;
-          ctx.fill();
-        });
-      }
-
-      function drawStars() {
-        stars.forEach(s => {
-          s.phi += s.spd;
-          const o = (0.3 + 0.7 * Math.abs(Math.sin(s.phi))) * 0.65;
-          ctx.beginPath();
-          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(185,215,255,${o})`;
-          ctx.fill();
-        });
-      }
-
-      function drawNetwork() {
-        const MAX = 165;
-        for (let i = 0; i < nodes.length; i++) {
-          for (let j = i + 1; j < nodes.length; j++) {
-            const a = nodes[i], b = nodes[j];
-            const d = Math.hypot(a.x - b.x, a.y - b.y);
-            if (d < MAX) {
-              ctx.beginPath();
-              ctx.moveTo(a.x, a.y);
-              ctx.lineTo(b.x, b.y);
-              ctx.strokeStyle = `rgba(0,115,255,${(1 - d / MAX) * .22})`;
-              ctx.lineWidth = .65;
-              ctx.stroke();
-            }
-          }
-          const n = nodes[i];
-          n.phi += .017;
-          const g = .5 + .5 * Math.sin(n.phi);
-          const grd = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r * 8);
-          grd.addColorStop(0, `rgba(0,150,255,${.4 * g})`);
-          grd.addColorStop(1, 'transparent');
-          ctx.beginPath(); ctx.arc(n.x, n.y, n.r * 8, 0, Math.PI * 2);
-          ctx.fillStyle = grd; ctx.fill();
-          ctx.beginPath(); ctx.arc(n.x, n.y, n.r * (.8 + .4 * g), 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(105,190,255,${.58 + .42 * g})`; ctx.fill();
-          n.x += n.vx; n.y += n.vy;
-          if (n.x < 0 || n.x > W) n.vx *= -1;
-          if (n.y < 0 || n.y > H) n.vy *= -1;
-        }
-      }
-
-      function draw() {
-        ctx.clearRect(0, 0, W, H);
-        t += .007;
-        drawAurora();
-        drawStars();
-        drawNetwork();
-        requestAnimationFrame(draw);
-      }
-
-      resize(); draw();
-      window.addEventListener('resize', resize);
-    })();
-
     // ── Mobile nav toggle ──
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobile-menu');

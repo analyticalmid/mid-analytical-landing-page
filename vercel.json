@@ -1,0 +1,17 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/servicos",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/sobre",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/contato",
+      "destination": "/index.html"
+    }
+  ]
+}
